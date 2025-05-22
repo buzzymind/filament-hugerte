@@ -13,7 +13,7 @@
             HugeRTE.init({
                 target: $refs.editor,
                 height: {{ $options['height'] }},
-                menubar: {!! is_array($options['menubar']) ? json_encode($options['menubar']) : (is_string($options['menubar']) ? ('\'' . $options['menubar'] . '\'') : ($options['menubar'] ? 'true' : 'false')) !!},
+                menubar: {!! json_encode($options['menubar']) !!},
                 plugins: {{ json_encode($options['plugins']) }},
                 toolbar: '{{ $options['toolbar'] }}',
                 setup: (editor) => {
