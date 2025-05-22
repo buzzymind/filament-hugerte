@@ -8,11 +8,15 @@
     :field="$field"
 >
     <div
-        x-data="{ state: $wire.{{ $applyStateBindingModifiers('entangle(\'' . $statePath . '\')') }} }"
+        wire:ignore
+        x-data="{
+            instance: null,
+            state: $wire.{{ $applyStateBindingModifiers('entangle(\'' . $statePath . '\') ) }}
+        }"
         x-init="
             $nextTick(() => {
-                if (window.hugerte) {
-                    hugerte.init({
+                if (window.hugerte && !instance) {
+                    instance = hugerte.init({
                         target: $refs.editor,
                         height: {{ $options['height'] }},
                         menubar: {!! is_bool($options['menubar']) ? ($options['menubar'] ? 'true' : 'false') : (is_string($options['menubar']) ? ('\'' . $options['menubar'] . '\'') : json_encode($options['menubar'])) !!},
@@ -20,7 +24,7 @@
                         toolbar: '{{ $options['toolbar'] }}',
                         setup: (editor) => {
                             editor.on('change', () => {
-                                state = editor.getContent();
+                                $wire.set('{{ $statePath }}', editor.getContent());
                             });
                             editor.on('init', () => {
                                 editor.setContent(state ?? '');
@@ -30,11 +34,15 @@
                 }
             });
         "
+        x-effect="
+            if (instance && state !== instance.getContent()) {
+                instance.setContent(state ?? '');
+            }
+        "
     >
         <textarea
             x-ref="editor"
             id="{{ $id }}"
-            x-model="state"
             class="filament-forms-field-input"
         ></textarea>
     </div>
