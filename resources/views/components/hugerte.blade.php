@@ -18,7 +18,10 @@
                 toolbar: '{{ $options['toolbar'] }}',
                 setup: (editor) => {
                     editor.on('change', () => {
-                        state = editor.getContent();
+                        $wire.set('{{ $statePath }}', editor.getContent());
+                    });
+                    editor.on('init', () => {
+                        editor.setContent(state ?? '');
                     });
                 }
             });
@@ -27,11 +30,7 @@
         <textarea
             x-ref="editor"
             id="{{ $id }}"
-            {{ $applyStateBindingModifiers('wire:model') }}="{{ $statePath }}"
-            {{ $isAutofocused() ? 'autofocus' : null }}
-            {{ $isDisabled() ? 'disabled' : null }}
-            {{ $isRequired() ? 'required' : null }}
-            {{ $applyStateBindingModifiers('wire:loading') }}.attr('disabled')
+            style="display:none;"
             class="filament-forms-field-input"
         ></textarea>
     </div>
