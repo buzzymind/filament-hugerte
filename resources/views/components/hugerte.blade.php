@@ -1,6 +1,15 @@
 @php
     $id = $getId();
     $statePath = $getStatePath();
+    $height = isset($options['height']) ? (int) $options['height'] : 500;
+    $menubar = $options['menubar'] ?? true;
+    $plugins = json_encode($options['plugins'] ?? []);
+    $toolbar = addslashes($options['toolbar'] ?? '');
+    $menubarJs = is_bool($menubar)
+        ? ($menubar ? 'true' : 'false')
+        : (is_string($menubar)
+            ? ('\'' . addslashes($menubar) . '\'')
+            : json_encode($menubar));
 @endphp
 
 <x-dynamic-component
@@ -18,10 +27,10 @@
                 if (window.hugerte && !instance) {
                     instance = hugerte.init({
                         target: $refs.editor,
-                        height: {{ (int) $options['height'] }},
-                        menubar: {!! is_bool($options['menubar']) ? ($options['menubar'] ? 'true' : 'false') : (is_string($options['menubar']) ? ('\'' . addslashes($options['menubar']) . '\'') : json_encode($options['menubar'])) !!},
-                        plugins: {{ json_encode($options['plugins']) }},
-                        toolbar: '{{ addslashes($options['toolbar']) }}',
+                        height: {{ $height }},
+                        menubar: {!! $menubarJs !!},
+                        plugins: {!! $plugins !!},
+                        toolbar: '{{ $toolbar }}',
                         setup: (editor) => {
                             editor.on('change', () => {
                                 $wire.set('{{ $statePath }}', editor.getContent());
