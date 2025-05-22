@@ -1,35 +1,35 @@
 # Filament HugeRTE
 
-Um plugin do Filament que integra o editor de texto rico HugeRTE aos seus formulários.
+A Filament plugin that integrates the HugeRTE rich text editor into your forms.
 
-## Instalação
+## Installation
 
 ```bash
 composer require buzzymind/filament-hugerte
 ```
 
-## Uso
+## Usage
 
-Para usar o editor HugeRTE em seus formulários do Filament, simplesmente adicione o componente `HugeRTE` ao seu formulário:
+To use the HugeRTE editor in your Filament forms, simply add the `HugeRTE` component to your form:
 
 ```php
 use BuzzyMind\FilamentHugeRTE\Forms\Components\HugeRTE;
 
-// Em seu formulário
+// In your form
 public function form(Form $form): Form
 {
     return $form
         ->schema([
             HugeRTE::make('content')
-                ->label('Conteúdo')
+                ->label('Content')
                 ->required(),
         ]);
 }
 ```
 
-## Configuração
+## Configuration
 
-O componente HugeRTE vem com configurações padrão que podem ser personalizadas:
+The HugeRTE component comes with default settings that can be customized:
 
 ```php
 HugeRTE::make('content')
@@ -45,6 +45,6 @@ HugeRTE::make('content')
     ])
 ```
 
-## Licença
+## License
 
-MIT 
+MIT
