@@ -1,5 +1,4 @@
 @php
-    dd($options);
     $id = $getId();
     $statePath = $getStatePath();
     if (isset($options['height'])) {

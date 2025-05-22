@@ -43,9 +43,8 @@ class HugeRTE extends Field
         ];
 
         $options = array_merge($defaultOptions, $this->hugeRteOptions);
+        $this->extraAttributes(['options' => $options]);
 
-        return array_merge(parent::getViewData(), [
-            'options' => $options,
-        ]);
+        return parent::getViewData();
     }
 }
