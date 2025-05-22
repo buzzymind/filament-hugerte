@@ -18,7 +18,7 @@
                 toolbar: '{{ $options['toolbar'] }}',
                 setup: (editor) => {
                     editor.on('change', () => {
-                        $wire.set('{{ $statePath }}', editor.getContent());
+                        state = editor.getContent();
                     });
                     editor.on('init', () => {
                         editor.setContent(state ?? '');
@@ -30,7 +30,7 @@
         <textarea
             x-ref="editor"
             id="{{ $id }}"
-            style="display:none;"
+            x-model="state"
             class="filament-forms-field-input"
         ></textarea>
     </div>
