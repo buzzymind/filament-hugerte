@@ -5,12 +5,15 @@
     $menubar = array_key_exists('menubar', $options) ? $options['menubar'] : true;
     $plugins = isset($options['plugins']) ? json_encode($options['plugins']) : '[]';
     $toolbar = isset($options['toolbar']) ? str_replace("'", "\\'", $options['toolbar']) : '';
+    // PHP < 8.0 compatibility: não use operador "?" em contexto de array
     if (is_bool($menubar)) {
         $menubarJs = $menubar ? 'true' : 'false';
     } elseif (is_string($menubar)) {
         $menubarJs = "'" . str_replace("'", "\\'", $menubar) . "'";
-    } else {
+    } elseif (is_array($menubar)) {
         $menubarJs = json_encode($menubar);
+    } else {
+        $menubarJs = 'true';
     }
 @endphp
 
@@ -38,7 +41,7 @@
                                 $wire.set('{{ $statePath }}', editor.getContent());
                             });
                             editor.on('init', () => {
-                                editor.setContent(state ?? '');
+                                editor.setContent(state ? state : '');
                             });
                         }
                     });
@@ -47,7 +50,7 @@
         "
         x-effect="
             if (instance && state !== instance.getContent()) {
-                instance.setContent(state ?? '');
+                instance.setContent(state ? state : '');
             }
         "
     >
