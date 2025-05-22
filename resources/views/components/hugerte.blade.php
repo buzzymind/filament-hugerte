@@ -32,7 +32,7 @@
             {{ $isDisabled() ? 'disabled' : null }}
             {{ $isRequired() ? 'required' : null }}
             {{ $applyStateBindingModifiers('wire:loading') }}.attr('disabled')
-            {{ $getExtraAlpineAttributeBag()->class(['filament-forms-field-input']) }}
+            class="filament-forms-field-input"
         ></textarea>
     </div>
 </x-dynamic-component> 
