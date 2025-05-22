@@ -41,7 +41,7 @@
                                 $wire.set('{{ $statePath }}', editor.getContent());
                             });
                             editor.on('init', () => {
-                                editor.setContent(state ? state : '');
+                                editor.setContent(state);
                             });
                         }
                     });
@@ -50,7 +50,7 @@
         "
         x-effect="
             if (instance && state !== instance.getContent()) {
-                instance.setContent(state ? state : '');
+                instance.setContent(state);
             }
         "
     >
