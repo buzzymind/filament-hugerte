@@ -18,10 +18,10 @@
                 if (window.hugerte && !instance) {
                     instance = hugerte.init({
                         target: $refs.editor,
-                        height: {{ $options['height'] }},
-                        menubar: {!! is_bool($options['menubar']) ? ($options['menubar'] ? 'true' : 'false') : (is_string($options['menubar']) ? ('\'' . $options['menubar'] . '\'') : json_encode($options['menubar'])) !!},
+                        height: {{ (int) $options['height'] }},
+                        menubar: {!! is_bool($options['menubar']) ? ($options['menubar'] ? 'true' : 'false') : (is_string($options['menubar']) ? ('\'' . addslashes($options['menubar']) . '\'') : json_encode($options['menubar'])) !!},
                         plugins: {{ json_encode($options['plugins']) }},
-                        toolbar: '{{ $options['toolbar'] }}',
+                        toolbar: '{{ addslashes($options['toolbar']) }}',
                         setup: (editor) => {
                             editor.on('change', () => {
                                 $wire.set('{{ $statePath }}', editor.getContent());
