@@ -14,6 +14,11 @@ class HugeRTE extends Field
     {
         parent::setUp();
         $this->default('');
+        $this->afterStateHydrated(function ($component, $state) {
+            if ($state === null) {
+                $component->state('');
+            }
+        });
     }
 
     public function options(array $options): static
