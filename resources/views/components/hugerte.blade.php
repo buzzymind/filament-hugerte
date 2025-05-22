@@ -13,7 +13,7 @@
             HugeRTE.init({
                 target: $refs.editor,
                 height: {{ $options['height'] }},
-                menubar: {{ $options['menubar'] ? 'true' : 'false' }},
+                menubar: {!! is_array($options['menubar']) ? json_encode($options['menubar']) : (is_string($options['menubar']) ? ('\'' . $options['menubar'] . '\'') : ($options['menubar'] ? 'true' : 'false')) !!},
                 plugins: {{ json_encode($options['plugins']) }},
                 toolbar: '{{ $options['toolbar'] }}',
                 setup: (editor) => {
@@ -35,4 +35,4 @@
             class="filament-forms-field-input"
         ></textarea>
     </div>
-</x-dynamic-component> 
+</x-dynamic-component>
