@@ -54,7 +54,7 @@
                         height: {{ $height }},
                         menubar: {!! $menubarJs !!},
                         plugins: {!! $plugins !!},
-                        toolbar: '{{ $toolbar }}',
+                        toolbar: '{{ $toolbar }}'
                         setup: (editor) => {
                             editor.on('change', () => {
                                 $wire.set('{{ $statePath }}', editor.getContent());
