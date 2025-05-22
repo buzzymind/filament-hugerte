@@ -1,0 +1,30 @@
+{
+    "name": "buzzymind/filament-hugerte",
+    "description": "HugeRTE editor integration for Filament",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "BuzzyMind\\FilamentHugeRTE\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BuzzyMind\\FilamentHugeRTE\\FilamentHugeRTEServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "php": "^8.1",
+        "filament/filament": "^3.0",
+        "laravel/framework": "^10.0",
+        "spatie/laravel-package-tools": "^1.16"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^8.0",
+        "phpunit/phpunit": "^10.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+} 
