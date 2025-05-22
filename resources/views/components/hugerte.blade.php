@@ -2,9 +2,9 @@
     $id = $getId();
     $statePath = $getStatePath();
     $height = isset($options['height']) ? (int) $options['height'] : 500;
-    $menubar = $options['menubar'] ?? true;
-    $plugins = json_encode($options['plugins'] ?? []);
-    $toolbar = addslashes($options['toolbar'] ?? '');
+    $menubar = array_key_exists('menubar', $options) ? $options['menubar'] : true;
+    $plugins = json_encode(isset($options['plugins']) ? $options['plugins'] : []);
+    $toolbar = addslashes(isset($options['toolbar']) ? $options['toolbar'] : '');
     $menubarJs = is_bool($menubar)
         ? ($menubar ? 'true' : 'false')
         : (is_string($menubar)
