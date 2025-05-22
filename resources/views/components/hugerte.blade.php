@@ -1,16 +1,35 @@
 @php
     $id = $getId();
     $statePath = $getStatePath();
-    $height = isset($options['height']) ? (int) $options['height'] : 500;
-    $menubar = array_key_exists('menubar', $options) ? $options['menubar'] : true;
-    $plugins = isset($options['plugins']) ? json_encode($options['plugins']) : '[]';
-    $toolbar = isset($options['toolbar']) ? str_replace("'", "\\'", $options['toolbar']) : '';
-    // PHP < 8.0 compatibility: não use operador "?" em contexto de array
+    if (isset($options['height'])) {
+        $height = (int) $options['height'];
+    } else {
+        $height = 500;
+    }
+    if (array_key_exists('menubar', $options)) {
+        $menubar = $options['menubar'];
+    } else {
+        $menubar = true;
+    }
+    if (isset($options['plugins'])) {
+        $plugins = json_encode($options['plugins']);
+    } else {
+        $plugins = '[]';
+    }
+    if (isset($options['toolbar'])) {
+        $toolbar = str_replace("'", "\\'", $options['toolbar']);
+    } else {
+        $toolbar = '';
+    }
     if (is_bool($menubar)) {
-        $menubarJs = $menubar ? 'true' : 'false';
-    } elseif (is_string($menubar)) {
+        if ($menubar) {
+            $menubarJs = 'true';
+        } else {
+            $menubarJs = 'false';
+        }
+    } else if (is_string($menubar)) {
         $menubarJs = "'" . str_replace("'", "\\'", $menubar) . "'";
-    } elseif (is_array($menubar)) {
+    } else if (is_array($menubar)) {
         $menubarJs = json_encode($menubar);
     } else {
         $menubarJs = 'true';
