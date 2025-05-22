@@ -3,13 +3,15 @@
     $statePath = $getStatePath();
     $height = isset($options['height']) ? (int) $options['height'] : 500;
     $menubar = array_key_exists('menubar', $options) ? $options['menubar'] : true;
-    $plugins = json_encode(isset($options['plugins']) ? $options['plugins'] : []);
-    $toolbar = addslashes(isset($options['toolbar']) ? $options['toolbar'] : '');
-    $menubarJs = is_bool($menubar)
-        ? ($menubar ? 'true' : 'false')
-        : (is_string($menubar)
-            ? ('\'' . addslashes($menubar) . '\'')
-            : json_encode($menubar));
+    $plugins = isset($options['plugins']) ? json_encode($options['plugins']) : '[]';
+    $toolbar = isset($options['toolbar']) ? str_replace("'", "\\'", $options['toolbar']) : '';
+    if (is_bool($menubar)) {
+        $menubarJs = $menubar ? 'true' : 'false';
+    } elseif (is_string($menubar)) {
+        $menubarJs = "'" . str_replace("'", "\\'", $menubar) . "'";
+    } else {
+        $menubarJs = json_encode($menubar);
+    }
 @endphp
 
 <x-dynamic-component
