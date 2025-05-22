@@ -44,7 +44,7 @@
         wire:ignore
         x-data="{
             instance: null,
-            state: @entangle($statePath)
+            state: @entangle($statePath) ?? ''
         }"
         x-init="
             $nextTick(() => {
