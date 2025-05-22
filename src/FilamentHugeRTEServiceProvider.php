@@ -21,7 +21,9 @@ class FilamentHugeRTEServiceProvider extends PackageServiceProvider
     public function packageBooted(): void
     {
         FilamentAsset::register([
-            Js::make('hugerte', 'https://cdn.jsdelivr.net/npm/hugerte@latest/dist/hugerte.min.js'),
+            Js::make('hugerte', 'https://cdn.jsdelivr.net/npm/hugerte@latest/dist/hugerte.min.js')
+                ->module(false)
+                ->loadedOnRequest(),
         ]);
     }
-} 
+}

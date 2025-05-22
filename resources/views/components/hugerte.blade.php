@@ -10,7 +10,7 @@
     <div
         x-data="{ state: $wire.{{ $applyStateBindingModifiers('entangle(\'' . $statePath . '\')') }} }"
         x-init="
-            HugeRTE.init({
+            window.hugerte && hugerte.init({
                 target: $refs.editor,
                 height: {{ $options['height'] }},
                 menubar: {!! json_encode($options['menubar']) !!},
